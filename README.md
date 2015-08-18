@@ -49,6 +49,6 @@ window.localStorage.setItem('access_token', setToken);
 
 to delete the token:
 ```javascript
-delete token
+//delete token
 localStorage.removeItem('access_token');
 ```
