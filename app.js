@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var colors = require('colors');
 var url = require('url'); // req.body
 var jwt = require('jwt-simple');
+var mysql = require('mysql');
 
 /*
  * THe JWT middleware
@@ -61,18 +62,35 @@ var server = app.listen(8080, function() {
 });
 
 /*
+ * DB connect for services
+ */
+ var dbconfig = require('./db/config');
+ var connection = mysql.createConnection({
+  host     : dbconfig.host,
+  user     : dbconfig.user,
+  password : dbconfig.password,
+  database : dbconfig.database
+ });
+
+/*
  * Protected routes
  */
- app.get('/secret', jwtauth, requireAuth, function(req, res){
-	// res.send('Hola ' + req.user[0].nombre + ' ' + req.user[0].apellidos)
-  res.json(req.user[0]);
+app.get('/secret', jwtauth, requireAuth, function(req, res){
+  res.json(req.user[0]); // pass the user data
 })
-
 
 /*
  * Unprotected routes
  */
- // login form
- app.get('/', function(req, res){
+ // register form
+ app.get('/register', function(req, res){
+   // get rols
+   connection.query('SELECT * FROM `rols`' , function(err, rols) {
+     res.render('register', {data: {rols:rols} });
+   });
+ });
+
+ var register = require('./lib/register');
+ app.post('/register', register, function(req, res){
    res.status(200).send('darwined login!');
  });

@@ -1,0 +1,19 @@
+extend layout
+block content
+  form(name="register", class="form register", action="/register", method="post")
+      li
+        input(type="text", name="username", id="username", placeholder="nombre de usuario", required)
+      li
+        input(type="password", name="password", id="password", placeholder="password", required)
+      li
+        input(type="nombre", name="nombre", id="nombre", placeholder="nombre", required)
+      li
+        input(type="apellidos", name="apellidos", id="apellidos", placeholder="apellidos", required)
+      li
+        select(name="rol", id="rol" required)
+          for rol in data.rols
+            option(value=rol.id)= rol.nombre
+      input(type="submit", value="registrarse", id="registrar", class="submit")
+      
+      
+          

@@ -1,17 +1,16 @@
 var express = require('express')
 var bodyParser = require('body-parser')
-// connectino mysql
 var mysql = require('mysql');
 var jwt = require('jwt-simple');
 var moment = require('moment')
 var bcrypt = require('bcrypt');
 
-// DB connect
+var dbconfig = require('./../db/config');
 var connection = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'root',
-	password : '',
-	database : 'darwined_siglo21_planner_scenarios'
+ host     : dbconfig.host,
+ user     : dbconfig.user,
+ password : dbconfig.password,
+ database : dbconfig.database
 });
 
 module.exports.set = function(app) {
@@ -41,8 +40,8 @@ app.get('/token', function(req, res){
 									);
 									res.json({
 										token: token,
-										expires: expires,
-										user: userData
+										expires: expires
+										// user: userData
 									});
 								}else{
 									res.status(401).send('Authentication error: password is wrong')

@@ -4,9 +4,8 @@
 var account = require('./account.js')
 var auth = require('./auth.js')
 
-
 module.exports.set = function(app) {
-	
+
 	/**
 	app.get('/', function(req, res){
 	  Website.findByName('bbc', function (err, websites) {
@@ -20,4 +19,3 @@ module.exports.set = function(app) {
 	auth.set(app)
 
 }
-
